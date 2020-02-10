@@ -1,3 +1,21 @@
+## setup
+
+git clone https://github.com/animesh/hh-suite
+mkdir -p hh-suite/build
+cd hh-suite/build
+cmake -DCMAKE_INSTALL_PREFIX=. ..
+make -j 4 && make install
+wget https://www.uniprot.org/uniprot/P13051.fasta
+cat P13051.fasta >> P13051.msa.fasta
+wget http://wwwuser.gwdg.de/~compbiol/uniclust/2018_08/uniclust30_2018_08_hhsuite.tar.gz
+tar xvzf uniclust30_2018_08_hhsuite.tar.gz
+bin/hhblits -cpu 12 -i  P13051.msa.fasta  -d uniclust30_2018_08/uniclust30_2018_08
+python ../build/scripts/hhsuitedb.py --ihhm=~/promec/promec/Animesh/P13051.msa.hhr -o P13051.hhm  --cpu=12
+
+
+
+
+
 # HH-suite3 for sensitive sequence searching
 
 (C) Johannes Soeding, Markus Meier, Martin Steinegger, Milot Mirdita, Michael Remmert, Andreas Hauser, Andreas Biegert
